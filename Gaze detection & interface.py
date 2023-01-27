@@ -85,6 +85,25 @@ while True:
         print(dist_mr)
         print("")
 
+        if(dist_lm < 120):
+            cv2.putText(frame, "LEFT", (50,150), font, 7, (255, 0, 0))
+            print("LEFT")
+            #cv2.putText(frame, dist_ud, (100, 200), font, 7, (255, 0, 0))
+        elif (dist_lm > 140):
+            print("RIGHT")
+            cv2.putText(frame, "RIGHT", (50, 150), font, 7, (255, 0, 0))
+        else:
+            print("MIDDLE")
+            cv2.putText(frame, "MIDDLE", (50, 150), font, 7, (255, 0, 0))
+        
+        
+        print("")
+        # print("")
+        # print("")
+        # print("")
+
+
+
 
 
 
