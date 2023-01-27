@@ -30,7 +30,9 @@ while True:
         eye = landmarks[374],landmarks[263],landmarks[362],landmarks[386],
         whole_eye= landmarks[473],landmarks[474],landmarks[475],landmarks[476],landmarks[477],landmarks[374], landmarks[263], landmarks[362], landmarks[386],
 
-        
+        # eye = landmarks[381],landmarks[382],landmarks[263],landmarks[249],
+        # landmarks[390],landmarks[373],landmarks[374],landmarks[380],
+        # landmarks[380]
         #263,249,390,373,374,380,381,382,362
         for id, landmark in enumerate(whole_eye):
             x = int(landmark.x * frame_w)
@@ -51,26 +53,44 @@ while True:
 
             x = int(landmark.x * frame_w)
             y = int(landmark.y * frame_h)
-            print(x,y)
-            cv2.circle(frame, (x, y), 3, (0, 255, 255))
+            #print(x,y)
+            #cv2.circle(frame, (x, y), 3, (0, 255, 255))
 
             w = landmarks[363].x* frame_w - landmarks[362].x* frame_w
             h = landmarks[374].y* frame_h - landmarks[386].y* frame_h
             x1, y1 = (int(landmarks[362].x* frame_w), int(landmarks[362].y* frame_h - h))
-            print(x1,y1)
+            #print(x1,y1)
             # Ending coordinate, here (220, 220)
             # represents the bottom right corner of rectangle
             x2, y2 = (int(landmarks[263].x* frame_w), int(landmarks[263].y* frame_h + h))
-            print(x2, y2)
+            #print(x2, y2)
             # Using cv2.rectangle() method
             # Draw a rectangle with blue line borders of thickness of 2 px
             cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 1)
-            roi = frame[y1:y2,x1:x2]
-            roi=cv2.resize(roi,None,fx=10,fy=10)
-            cv2.imshow("Roi",roi)
-            cv2.waitKey(1)
+            #roi = frame[y1:y2,x1:x2]
+            #roi=cv2.resize(roi,None,fx=10,fy=10)
+            #cv2.imshow("Roi",roi)
+            #cv2.waitKey(1)
 
 
 
-    cv2.imshow('Eye Controlled Mouse', frame)
+        dist_lr = horizontal[2].x  - horizontal[0].x  
+        dist_lm = horizontal[1].x  - horizontal[0].x  
+        dist_mr = horizontal[2].x  - horizontal[1].x 
+        dist_ud = vertical[0].y  - vertical[2].y
+        dist_um = vertical[0].y  - vertical[1].y
+        dist_md = vertical[1].y  - vertical[2].y
+
+        print(dist_lr)
+        print(dist_lm)
+        print(dist_mr)
+        print("")
+
+
+
+
+
+
+
+    cv2.imshow('Gaze detection', frame)
     cv2.waitKey(1)
