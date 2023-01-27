@@ -74,20 +74,16 @@ while True:
 
 
 
-        dist_lr = horizontal[2].x  - horizontal[0].x  
-        dist_lm = horizontal[1].x  - horizontal[0].x  
-        dist_mr = horizontal[2].x  - horizontal[1].x 
-        dist_ud = vertical[0].y  - vertical[2].y
-        dist_um = vertical[0].y  - vertical[1].y
-        dist_md = vertical[1].y  - vertical[2].y
-
+        dist_lr = horizontal[2].x * screen_w*2 - horizontal[0].x * screen_w*2
+        dist_lm = horizontal[1].x * screen_w*2 - horizontal[0].x * screen_w*2
+        dist_mr = horizontal[2].x * screen_w*2 - horizontal[1].x * screen_w*2
+        dist_ud = vertical[0].y * screen_h*2 - vertical[2].y * screen_h*2
+        dist_um = vertical[0].y * screen_h*2 - vertical[1].y * screen_h*2
+        dist_md = vertical[1].y * screen_h*2 - vertical[2].y * screen_h*2
         print(dist_lr)
         print(dist_lm)
         print(dist_mr)
         print("")
-
-
-
 
 
 
