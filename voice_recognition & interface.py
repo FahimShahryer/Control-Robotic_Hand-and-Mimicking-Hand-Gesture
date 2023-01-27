@@ -20,3 +20,22 @@ def get_audio():
 
 x=get_audio()
 print(x)
+
+
+    if (x= "grab"):
+        fingers = [0, 0, 0, 0, 0]
+        mySerial1.sendData(fingers)
+        print("grab")
+
+    elif (x="release"):
+        fingers = [1, 1, 1, 1, 1]
+        mySerial1.sendData(fingers)
+        print("release")
+
+    elif (x="index"):
+        fingers = [0, 1, 0, 0, 0]
+        mySerial1.sendData(fingers)
+        print("release")
+
+    else:
+        print("No Command")
