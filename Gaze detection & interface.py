@@ -1,7 +1,10 @@
 import cv2
+import cvzone
 import mediapipe as mp
 import pyautogui
 import math
+
+mySerial = cvzone.SerialObject("COM3", 9600, 1)
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_face_mesh = mp.solutions.face_mesh
@@ -59,11 +62,11 @@ while True:
             w = landmarks[363].x* frame_w - landmarks[362].x* frame_w
             h = landmarks[374].y* frame_h - landmarks[386].y* frame_h
             x1, y1 = (int(landmarks[362].x* frame_w), int(landmarks[362].y* frame_h - h))
-            #print(x1,y1)
+            print(x1,y1)
             # Ending coordinate, here (220, 220)
             # represents the bottom right corner of rectangle
             x2, y2 = (int(landmarks[263].x* frame_w), int(landmarks[263].y* frame_h + h))
-            #print(x2, y2)
+            print(x2, y2)
             # Using cv2.rectangle() method
             # Draw a rectangle with blue line borders of thickness of 2 px
             cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 1)
@@ -80,32 +83,38 @@ while True:
         dist_ud = vertical[0].y * screen_h*2 - vertical[2].y * screen_h*2
         dist_um = vertical[0].y * screen_h*2 - vertical[1].y * screen_h*2
         dist_md = vertical[1].y * screen_h*2 - vertical[2].y * screen_h*2
-        print(dist_lr)
-        print(dist_lm)
-        print(dist_mr)
+        print(dist_ud)
+        print(dist_um)
+        print(dist_md)
         print("")
 
-        if(dist_lm < 120):
+        if(dist_lm < .50 * dist_lr):
             cv2.putText(frame, "LEFT", (50,150), font, 7, (255, 0, 0))
+            fingers = [0, 0, 0, 0, 0]
             print("LEFT")
+            mySerial.sendData(fingers)
             #cv2.putText(frame, dist_ud, (100, 200), font, 7, (255, 0, 0))
-        elif (dist_lm > 140):
+        elif (dist_mr < .445 * dist_lr):
             print("RIGHT")
             cv2.putText(frame, "RIGHT", (50, 150), font, 7, (255, 0, 0))
+            fingers = [1, 1, 1, 1, 1]
+            mySerial.sendData(fingers)
         else:
             print("MIDDLE")
             cv2.putText(frame, "MIDDLE", (50, 150), font, 7, (255, 0, 0))
-        
-        
+            fingers = [0, 1, 1, 0, 0]
+            mySerial.sendData(fingers)
+
+
         print("")
-        # print("")
-        # print("")
-        # print("")
+        print("")
+        print("")
+        print("")
 
 
 
 
 
 
-    cv2.imshow('Gaze detection', frame)
-    cv2.waitKey(1)
+    cv2.imshow('Eye Controlled Hand', frame)
+    cv2.waitKey(3)
